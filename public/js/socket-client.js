@@ -1,1 +1,2 @@
-console.log('Hola Mundo');
+// Para ver el cliente conectado, hay que hacer uso de un obejeto que expone la libreria de socket.io (en el html se puede apreciar como se incluye la libreria)
+const socket = io() // socket del cliente. El io() es lo que dispone la importacion antes mencionada (del index.html)
