@@ -42,7 +42,11 @@ class Server {
             //para desconectar en caso de qe haya algun error
             socket.on('disconnect', () => {
                 console.log('cliente desconectado', socket.id);
-            })
+            });
+
+            socket.on('enviar-mensaje', ( payload ) => {
+                console.log('payload:', payload );
+            });
         });
     }
 
