@@ -11,7 +11,7 @@ class Server {
         this.server = http.createServer(this.app); // crea servidor
         this.io = socket(this.server) // io es toda la informacion de sus sockets conectados (es el servidor de sockets)
 
-        this.paths = {}
+        this.paths = {};
 
         this.middlewares();
 
@@ -44,8 +44,9 @@ class Server {
                 console.log('cliente desconectado', socket.id);
             });
 
-            socket.on('enviar-mensaje', ( payload ) => {
+            socket.on('enviar-mensaje', ( payload ) => { // para escuchar cuando el cliente emite 'enviar-mensaje'
                 console.log('payload:', payload );
+                this.io.emit('enviar-mensaje', payload); // para mandar un mensaje a todos lo clientes conectados se utiliza el emit() (el servidor de sockes lo envia)
             });
         });
     }

@@ -1,3 +1,9 @@
+/* 
+    Por si existe alguna confusion:
+        toodos los metodos que aparecen aqui relacionados con sockets son del lado del front end, no confundir con los metodos utilizados en server.js porque estos son relacionados con el servidor
+*/
+
+
 // Referencias HTML
 
 const lblOnline   = document.querySelector('#lblOnline'); // seleccionamos la clase de index.html
@@ -12,14 +18,18 @@ const socket = io() // socket del cliente. El io() es lo que dispone la importac
 socket.on('connect', () => { // el socket.on practicamente es como un eventListener, el 'connect' hace referencia a cuando inicia la conexion (esto succede en el server o app.js) y gracias a que esta importado en el HTML se puede llegar y escribir aqui sin necesidad de exportarlo
     console.log('conectado');
     lblOffline.style.display = 'none';
-    lblOnline.style.display = ''
+    lblOnline.style.display = '';
 });
 
 socket.on('disconnect', () => {
     console.log('Desconectado del servidor');
-    lblOffline.style.display = ''
-    lblOnline.style.display = 'none'
+    lblOffline.style.display = '';
+    lblOnline.style.display = 'none';
 });
+
+socket.on('enviar-mensaje', (payload) => {
+    console.log(payload);
+})
 
 btnEnviar.addEventListener('click', () => {
     const mensaje = txtMensaje.value;
