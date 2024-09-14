@@ -44,9 +44,12 @@ class Server {
                 console.log('cliente desconectado', socket.id);
             });
 
-            socket.on('enviar-mensaje', ( payload ) => { // para escuchar cuando el cliente emite 'enviar-mensaje'
-                console.log('payload:', payload );
-                this.io.emit('enviar-mensaje', payload); // para mandar un mensaje a todos lo clientes conectados se utiliza el emit() (el servidor de sockes lo envia)
+            socket.on('enviar-mensaje', ( payload, callback ) => { // para escuchar cuando el cliente emite 'enviar-mensaje'. El primer argumento es el payload que envia el cliente desde el frontend (socket-client.js) y el segundo es el callback (revisar implementacion en socket-client.js)
+                const id = 123456;
+
+                callback({id, fecha: new Date().getTime() });
+
+                // this.io.emit('enviar-mensaje', payload); // para mandar un mensaje a todos lo clientes conectados se utiliza el emit() (el servidor de sockes lo envia)
             });
         });
     }
@@ -63,5 +66,4 @@ module.exports = Server;
 /* 
 Consideraciones:
     - con esta configuracion se habilita un path en 'localhost:8080/socket.io/socket.io.js' que contiene toda la informacion que la libreria nos provee para usar por el cliente
-
 */

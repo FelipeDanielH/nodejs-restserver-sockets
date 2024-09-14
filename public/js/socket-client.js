@@ -29,7 +29,7 @@ socket.on('disconnect', () => {
 
 socket.on('enviar-mensaje', (payload) => {
     console.log(payload);
-})
+});
 
 btnEnviar.addEventListener('click', () => {
     const mensaje = txtMensaje.value;
@@ -37,7 +37,10 @@ btnEnviar.addEventListener('click', () => {
         mensaje,
         id: '123 asbc',
         fecha: new Date().getTime()
-    }
+    };
 
-    socket.emit( 'enviar-mensaje', payload );
+    socket.emit( 'enviar-mensaje', payload, (id) => { // el primer argumento es el nombre del socket a enviar al servidor, el segudo es el payload (puede ser cualquier tipo de dato pero por lo general es un objeto) y finalmente un callback (o funcion)
+        console.log('Desde el server', id ); // lo que hay dentro del callback, el servidor (server.js) tiene que mandarlo a ejecutar en algun punto
+    });
+
 });
