@@ -2,6 +2,7 @@ const express = require('express');
 const cors = require('cors');
 const http = require('http')
 const socket = require('socket.io');
+const { socketController } = require('../sockets/controller');
 
 class Server {
     constructor() {
@@ -36,22 +37,7 @@ class Server {
     }
 
     sockets() {
-        this.io.on('connection', socket => {
-            console.log('Cliente conectado', socket.id);
-            // socket.disconect();
-            //para desconectar en caso de qe haya algun error
-            socket.on('disconnect', () => {
-                console.log('cliente desconectado', socket.id);
-            });
-
-            socket.on('enviar-mensaje', ( payload, callback ) => { // para escuchar cuando el cliente emite 'enviar-mensaje'. El primer argumento es el payload que envia el cliente desde el frontend (socket-client.js) y el segundo es el callback (revisar implementacion en socket-client.js)
-                const id = 123456;
-
-                callback({id, fecha: new Date().getTime() });
-
-                // this.io.emit('enviar-mensaje', payload); // para mandar un mensaje a todos lo clientes conectados se utiliza el emit() (el servidor de sockes lo envia)
-            });
-        });
+        this.io.on('connection', socketController );
     }
 
     listen() {

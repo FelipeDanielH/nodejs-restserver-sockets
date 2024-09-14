@@ -35,7 +35,7 @@ btnEnviar.addEventListener('click', () => {
     const mensaje = txtMensaje.value;
     const payload = {
         mensaje,
-        id: '123 asbc',
+        id: '123 abc',
         fecha: new Date().getTime()
     };
 
